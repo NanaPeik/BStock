@@ -1,0 +1,350 @@
+<div id="parentBox">
+
+    <ul class="nav nav-pills mb-3 customWizardNavigation_globall" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#step_one" role="tab"
+                (click)="changeTab('tabClick',0)">{{step_one}}</a>
+        </li>
+        <li class="nav-item" [hidden]="showSecondTab">
+            <a class="nav-link" data-toggle="pill" href="#step_two" role="tab"
+                (click)="changeTab('tabClick',1)">მიმართულება</a>
+        </li>
+        <li class="nav-item" [hidden]="showThirdTab">
+            <a class="nav-link" data-toggle="pill" href="#step_three" role="tab"
+                (click)="changeTab('tabClick',2)">პროდუქტი</a>
+        </li>
+    </ul>
+
+    <div class="card algeti-Font">
+        <div id="main-cardBody" class="card-body">
+            <div id="nextButton" *ngIf="buttonType == 'next' && importType != ''"
+                class="floatingButtons_globally greenGradientBackground_globally">
+                <i class="material-icons" (click)="changeTab('next')">keyboard_arrow_right</i>
+            </div>
+
+            <div id="prevButton" *ngIf="mainActiveTab == 1 || mainActiveTab == 2"
+                class="floatingButtons_globally greenGradientBackground_globally">
+                <i class="material-icons" (click)="changeTab('previous')">keyboard_arrow_left</i>
+            </div>
+
+            <!-- <button *ngIf="buttonType == 'save'" (click)="saveImport()" class="btn greenGradientBackground_globally material-icons"
+                style="position: absolute; bottom: 0px; right: 0px; z-index: 2;">save</button> -->
+
+
+            <!-- <div id="prevButton" class="floatingButtons_globally greenGradientBackground_globally">
+                <i class="material-icons" (click)="changeTab('previous')">keyboard_arrow_left</i>
+            </div>
+            <div id="nextButton" class="floatingButtons_globally greenGradientBackground_globally" [ngSwitch]="buttonType">
+                <i *ngSwitchCase="'next'" class="material-icons" (click)="changeTab('next')">keyboard_arrow_right</i>
+                <i *ngSwitchCase="'save'" class="material-icons" (click)="saveImport()">save</i>
+            </div> -->
+
+
+            <div class="tab-content">
+                <div id="step_one" class="tab-pane fade show active" role="tabpanel">
+                    <div class="btn-group btn-group-toggle bpg-arial-Font" data-toggle="buttons">
+                        <label id="widthBillNumber" class="btn btn-light" (click)="changeImportType($event.target.id)">
+                            <input type="radio" name="options" autocomplete="off" checked> ზედნადების ნომრით
+                        </label>
+                        <label id="withHand" class="btn btn-light" (click)="changeImportType($event.target.id)">
+                            <input type="radio" name="options" autocomplete="off"> ხელით
+                        </label>
+                    </div>
+                </div>
+                <div id="step_two" class="tab-pane fade" role="tabpanel" [ngSwitch]="importType">
+                    <div *ngSwitchCase="'widthBillNumber'">
+                        <div style="display: flex;">
+                            <select id="stockList_forBill" class="selectpicker" title="აირჩიეთ საწყობი">
+                                <option *ngFor="let i of reusableServices.billImport_stockList" value="{{i.Code}}"
+                                    style="content: '';">{{i.Name}}</option>
+                            </select>
+
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="ძიება" #invoiceNumber>
+                                <div (click)="searchInvoice(invoiceNumber)" class="input-group-prepend"
+                                    style="cursor: pointer;">
+                                    <span class="input-group-text">
+                                        <i class="material-icons">search</i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="'withHand'">
+                        <div class="container">
+                            <table id="testTable">
+                                <tbody>
+                                    <tr>
+                                        <td class="NFont">საწყობი</td>
+                                        <td>
+                                            <div>
+                                                <span>დასახელება</span>
+                                                <select id="stockCodeForHand" class="selectpicker"
+                                                    title="აირჩიეთ საწყობი" (change)="changeHandStock()"
+                                                    data-width="100%">
+                                                    <option *ngFor="let i of reusableServices.handImport_stockList"
+                                                        value="{{i.Code}}">{{i.Name}}</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="NFont">მომწოდებელი</td>
+                                        <td>
+                                            <div>
+                                                <span>დასახელება</span>
+                                                <select id="supplier" class="selectpicker" title="აირჩიეთ მომწოდებელი"
+                                                    data-live-search="true"
+                                                    data-none-results-text="მონაცემები არ მოიძებნა" data-width="100%">
+                                                    <option *ngFor="let i of importServices.suppliersList"
+                                                        value="{{i.SupplierCode}}">{{i.SupplierName}}</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <span>მანქანის ნომერი</span>
+                                                <input id='carNumber' type="text" class="form-control"
+                                                    placeholder="შეიყვანეთ მანქანის ნომერი" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="NFont">იმპორტი</td>
+                                        <td>
+                                            <div>
+                                                <span>ტიპი</span>
+                                                <select id="billOrCodeSelect" class="selectpicker"
+                                                    (change)="billOrCodeSelect_change($event)" data-width="100%">
+                                                    <option value="customCode">კოდით</option>
+                                                    <option value="billNumber">ზედნადების ნომრით</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <span>საბუთის ნომერი</span>
+                                                <input id="forBillOrCodeSelect"
+                                                    [(ngModel)]="reusableServices.customBillCode" disabled type="text"
+                                                    class="form-control" placeholder="ზედნადების ნომერი" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            
+
+                            <!-- <div class="card mb-3">
+                                <div class="card-header font-weight-bold NFont" style="font-size: 14px; color: rgb(48, 76, 45); text-shadow: 0px 0px 0px rgba(108, 136, 105, 0.43);">
+                                    <p>საწყობი</p>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <select id="stockCodeForHand" class="selectpicker" title="აირჩიეთ საწყობი"
+                                            (change)="changeHandStock()" data-width="100%">
+                                            <option *ngFor="let i of reusableServices.handImport_stockList"
+                                                value="{{i.Code}}">{{i.Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-header font-weight-bold NFont" style="font-size: 14px; color: rgb(48, 76, 45); text-shadow: 0px 0px 0px rgba(108, 136, 105, 0.43);">მომწოდებელი</div>
+                                <div class="card-body">
+                                    <div style="display: flex">
+                                        <div class="mr-2">
+                                            <select id="supplier" class="selectpicker" title="აირჩიეთ მომწოდებელი"
+                                                data-live-search="true" data-none-results-text="მონაცემები არ მოიძებნა">
+                                                <option *ngFor="let i of importServices.suppliersList"
+                                                    value="{{i.SupplierCode}}">{{i.SupplierName}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="width: 100%;">
+                                            <input id='carNumber' type="text" class="form-control"
+                                                placeholder="შეიყვანეთ მანქანის ნომერი" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header font-weight-bold NFont" style="font-size: 14px; color: rgb(48, 76, 45); text-shadow: 0px 0px 0px rgba(108, 136, 105, 0.43);">იმპორტი</div>
+                                <div class="card-body">
+                                    <div style="display: flex">
+                                        <div class="mr-2">
+                                            <select id="billOrCodeSelect" class="selectpicker"
+                                                (change)="billOrCodeSelect_change($event)">
+                                                <option value="customCode">კოდით</option>
+                                                <option value="billNumber">ზედნადების ნომრით</option>
+                                            </select>
+                                        </div>
+                                        <div style="width: 100%;">
+                                            <input id="forBillOrCodeSelect"
+                                                [(ngModel)]="reusableServices.customBillCode" disabled type="text"
+                                                class="form-control" placeholder="ზედნადების ნომერი" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                    <div *ngSwitchDefault>
+                        <h1>გაუთვალისწინებელი შეცდომა</h1>
+                    </div>
+                </div>
+
+                <div id="step_three" class="tab-pane fade" role="tabpanel">
+                    <div style="display: flex;">
+                        <select id="productSelectForHand" class="selectpicker" title="აირჩიეთ პროდუქტი"
+                            data-width="100%" data-live-search="true"
+                            (change)="productSelectForHand_change($event.target.value)"
+                            data-none-results-text="მონაცემები არ მოიძებნა">
+                            <option *ngFor="let i of reusableServices.product_handImport" value="{{i.ProductCode1}}"
+                                style="content: '';">{{i.ProductName}} ({{i.ProductUserCode}})</option>
+                        </select>
+
+                        <select id="brandSelectForHand" class="selectpicker" title="ბრენდი" data-width="100%"
+                            data-live-search="true" data-none-results-text="მონაცემები არ მოიძებნა">
+                            <option *ngFor="let i of reusableServices.brand_handImport" value="{{i.Code}}"
+                                style="content: '';">{{i.Name}}</option>
+                        </select>
+
+                        <input id="productUserCode" class="form-control" type="text" placeholder="პროდ.კოდი">
+                        <input id="commentForHand" class="form-control" type="text" placeholder="კომენტარი">
+                        <input id="productQuantityForHand" class="form-control" type="number" placeholder="რაოდენობა">
+
+                        <div class="input-group">
+                            <input id="productUnitPriceForHand" class="form-control" type="number"
+                                placeholder="ერთ.ფასი">
+
+                            <div id="currencyDropdown" class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" [disabled]="tableDatas.length > 0"
+                                    type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
+                                    {{importServices.activeCurrency_name}}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" (click)="changeCurrency($event)">
+                                    <li *ngFor="let i of importServices.currencyList; let first = first" id="{{i.Code}}"
+                                        class="dropdown-item" [class.active]="first">{{i.Name}}</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="btn greenGradientBackground_globally btn-block mt-1 mb-1"
+                        (click)="addNewProductInTableForHand()">დამატება</button>
+                </div>
+
+                <div id="importTable_parent" class="tableParent_globall" *ngIf="showTable"
+                    [ngStyle]="{'height': [customTableHeight]}">
+                    <table id="import_table"
+                        class="table table-bordered table-hover table-striped scrollForTable_globall">
+                        <thead>
+                            <tr>
+                                <th>დასახელება</th>
+                                <th>ბრენდი</th>
+                                <th>განზომილება1</th>
+                                <th>განზომილება2</th>
+                                <th>რაოდენობა</th>
+                                <th>ერთ.ფასი</th>
+                                <th>ჯამური თანხა</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="tableDatas.length == 0; else showDatas">
+                                <td colspan="7">ცხრილი ცარიელია...</td>
+                            </tr>
+
+                            <ng-template #showDatas>
+                                <tr *ngFor="let i of tableDatas; index as index">
+                                    <td>{{i.name}}</td>
+                                    <td *ngIf="importType == 'widthBillNumber'; else selectedBrand">
+                                        <select id="brand{{index}}" (change)="brandForBillNumber_change($event, index)"
+                                            class="selectpicker brands" title="ბრენდი" data-container="body"
+                                            data-live-search="true" data-none-results-text="მონაცემები არ მოიძებნა">
+                                            <option *ngFor="let i of reusableServices.brand_billImport"
+                                                value="{{i.Code}}">{{i.Name}}</option>
+                                        </select>
+                                    </td>
+                                    <ng-template #selectedBrand>
+                                        <td>{{i.brandName}}</td>
+                                    </ng-template>
+
+                                    <td class="dimensionRow">
+                                        <select class="selectpicker dimension1" id="dimension1_{{index}}"
+                                            (change)="dimension_change($event, i.name, 'dim1')" data-width="100%"
+                                            title="განზომილება">
+                                            <option *ngFor="let i of reusableServices.dimensions_list"
+                                                value="{{i.Code}}">{{i.Name}}</option>
+                                        </select>
+                                    </td>
+                                    <td class="dimensionRow">
+                                        <select class="selectpicker dimension2" id="dimension2_{{index}}"
+                                            (change)="dimension_change($event, i.name, 'dim2')" data-width="100%"
+                                            title="განზომილება" multiple>
+                                            <option *ngFor="let i of reusableServices.dimensions_list"
+                                                value="{{i.Code}}">{{i.Name}}</option>
+                                        </select>
+                                    </td>
+                                    <td>{{i.quantity}}</td>
+                                    <td>{{i.unitPrice}}</td>
+                                    <td>
+                                        {{i.sum}}
+                                        <i *ngIf="importType == 'withHand'" class="material-icons"
+                                            (click)="deleteProductFromTable(i.productUserCode)">delete_forever</i>
+                                    </td>
+                                </tr>
+                            </ng-template>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="main-cardFooter" class="card-footer text-right">
+            <button class="btn btn-default mr-1 display_inlineFlex_globally" (click)="closeImport()">
+                <i class="material-icons">remove</i>
+                <span>დახურვა</span>
+            </button>
+            <button *ngIf="buttonType == 'save'" (click)="saveImport()"
+                class="btn greenGradientBackground_globally display_inlineFlex_globally">
+                <i class="material-icons">done</i>
+                <span>შენახვა</span>
+            </button>
+        </div>
+
+        <!-- <div class="card-footer" [ngSwitch]="buttonType">
+            <button class="btn btn-danger material-icons" (click)="changeTab('previous')"
+                style="float: left">keyboard_arrow_left</button>
+
+            <button *ngSwitchCase="'next'" class="btn btn-success material-icons" (click)="changeTab('next')"
+                style="float: right">keyboard_arrow_right</button>
+
+            <button *ngSwitchCase="'save'" class="btn btn-success material-icons" (click)="saveImport()"
+                style="float: right">შენახვა</button>
+        </div> -->
+    </div>
+</div>
+
+<!-- მოდალური ფორმა ახალი მომწოდებლის დამატებისთვის -->
+<div id="addNewSupplier_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ახალი მომწოდებლის დამატება</h5>
+            </div>
+            <div class="modal-body">
+                <input id="newSupplierCode" type="text" class="form-control" placeholder="მომწოდებლის კოდი">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="addNewCustomer()">
+                    <i class="material-icons">done</i>
+                    <span>Save changes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

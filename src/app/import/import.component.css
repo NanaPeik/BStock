@@ -1,0 +1,142 @@
+.nav{
+    margin: 0px
+}
+
+#parentBox{
+    height: calc(100vh - 108px);
+}
+
+#main-cardBody{
+    height: calc(100vh - 195px);
+    overflow: auto;
+}
+
+#main-cardFooter{
+    padding: 5px;
+}
+
+#step_one > div{
+    width: 100%;
+}
+
+#step_one label{
+    width: 50%;
+    line-height: 75px;
+    background: linear-gradient(to bottom, rgba(245, 245, 245, 0.39) 20%, rgba(116, 142, 112, 0.14) 90%);
+    border: 1px solid #c9cac9;
+    color: #809388;
+}
+
+.dimensionRow{
+    padding: 4px 10px;
+}
+
+#import_table tbody td{
+    position: relative;
+    width: 10%;
+}
+
+#import_table tbody td > i{
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: #dd3545;
+    display: none
+}
+
+#import_table tbody tr:hover td > i{
+    display: inline-block
+}
+
+/* #step_two{
+    transform: translateY(9vh);
+}
+
+#step_two .container > div{
+    margin-bottom: 15px;
+}
+
+#step_two .container > div p{
+    margin: 0px;
+} */
+
+#currencyDropdown li {
+    cursor: pointer;
+}
+
+#currencyDropdown li.active, #currencyDropdown li:active {
+    background: #7f9288;
+}
+
+
+
+label.btn-light.active{
+    background: linear-gradient(to bottom, rgba(162,222,162,1) 0%,rgba(140,210,140,1) 44%,rgba(115,195,115,1) 100%) !important;
+    color: #fff !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+#testTable{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#testTable tbody td{
+    padding: 10px;
+    border: 1px solid #d7dcd7;
+}
+
+#testTable tbody tr:first-child td:first-child{
+    border-top-left-radius: 5px;
+}
+
+#testTable tbody tr:first-child td:last-child{
+    border-top-right-radius: 5px;
+}
+
+#testTable tbody tr:last-child td:first-child{
+    border-bottom-left-radius: 5px;
+}
+
+#testTable tbody tr:last-child td:last-child{
+    border-bottom-right-radius: 5px;
+}
+
+#testTable tbody td:first-child{
+    width: 10%;
+    text-align: center;
+    text-shadow: 0px 0px 0px rgb(68, 189, 55)
+}
+
+#testTable tbody td:last-child{
+    width: 90%;
+    border-left: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#testTable tbody td:last-child div{
+    padding-top: 20px;
+}
+
+#testTable tbody td:last-child div:last-child{
+    padding-bottom: 20px;
+}
+
+#testTable tbody tr:not(:last-child) td{
+    border-bottom: none
+}
+
+#testTable tbody td span{
+    text-shadow: 0px 0px 0px rgb(142, 189, 137);
+}

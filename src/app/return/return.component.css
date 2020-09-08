@@ -1,0 +1,41 @@
+
+::ng-deep .cdk-overlay-container {
+    z-index: 1200 !important;
+  }
+mat-form-field{
+    width:48.5%;
+    margin: 5px;
+}
+#companySelectpicker, #partnumberSelectpicker{
+width: 48%;
+}
+#partnumberSelectpicker{
+    margin-left: 5px;
+}
+#tableReturnProduct td{
+    width: 100%;
+}
+#inputInTable{
+    border: 0.5px solid gray;
+    border-radius: 5px 2px;
+    width: 80%;
+    margin: 10px 14px;
+    box-shadow: none;
+    padding: 2px 2px 2px 12px;
+}
+#makeclear{
+    margin: 5px 0px;
+    position: relative;
+    float: right;
+    background-color: #75ac75;
+    /* width: 270px; */
+    color: white;
+   }
+#makeclear > i{
+       position: relative;
+       top: 5px;
+       font-size: 20px;
+   }
+#makeclear > span{
+   margin-left: 5px;
+   }

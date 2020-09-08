@@ -1,0 +1,65 @@
+<!--პირველი გვერდის ჰედერი-->
+<div id="topSide">
+    <div class="row">
+        <div id="leftSide" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <a onclick="location.reload()" style="cursor: pointer"><!--იგივე გვერდს არეფრეშებს?????-->
+                <i class="material-icons">view_module</i>
+                <span style="font-family: 'Roboto', sans-serif;">BLIVE.GE</span>
+                <span class="NFont"> - საწყობი</span>
+            </a>
+        </div>
+        <div id="rightSide" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right algeti-Font">
+            <button type="button" class="btn mr-1">
+                <i class="material-icons">perm_identity</i>
+                <span class="algeti-Font">{{globalVariables.userName}}</span>
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="logOut()">
+                <i class="material-icons">eject</i>
+                <span class="algeti-Font">გასვლა</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="mainButtons">
+    <div id="leftSideButtons" *ngIf="showMainButtons">
+        <div *ngIf="buttons.showImportButton" (click)="mainButtonsClick('import', 'პროდუქტის მიღება')">
+            <i class="material-icons">add</i>
+        </div>
+        <div *ngIf="buttons.showExportButton" (click)="mainButtonsClick('export', 'პროდუქტის განაწილება')">
+            <i class="material-icons">local_shipping</i>
+        </div>
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)='clearform()'>
+  Launch demo modal
+</button>-->
+        <div *ngIf="buttons.showReturnButton" (click)="showRemoveComponent()">
+            <i class="material-icons" type="button" data-toggle="modal" data-target="#turnReturnModal">remove</i>
+        </div>
+        <div *ngIf="buttons.showRedoButton" (click)="showRedoComponent()">
+            <i class="material-icons" type="button" data-toggle="modal" data-target="#turnReturnModal">redo</i>
+        </div>
+    </div>
+
+    <div id="mainCloseButton" *ngIf="!showMainButtons">
+        <h5 class="NFont font-weight-bold">{{innerTitle}}</h5>
+        <div id="mainTopButtons">
+            <i (click)="clearForms()" class="material-icons" title="გასუფთავება"
+                style="border-right: 1px solid #000; margin-right: 4px; padding-right: 4px;">refresh</i>
+            <i class="material-icons" title="დახურვა" (click)="closeCurrentForm()">close</i>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div id="mainContent">
+    <div [ngSwitch]="activeField">
+        <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
+        <app-import (importComponentEvent)="receiveImportComponent($event)" *ngSwitchCase="'import'"></app-import>
+        <app-export (exportComponentEvent)="receiveExportComponent($event)" *ngSwitchCase="'export'"></app-export>
+    </div>
+</div>
+
+<!-- სპინერი... -->
+<div id="spinner_parent">
+    <div class="spinner">Loading...</div>
+</div>

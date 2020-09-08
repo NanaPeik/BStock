@@ -1,0 +1,312 @@
+/* You can add global styles to this file, and also import other style files */
+html{
+    background-color: rgba(68, 169, 60, 0.27);
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'blok-regular';
+    src: url('fonts/bpg-nino-mtavruli-webfont.eot');
+    src: local('Blokletters Potlood Potlood'), local('Blokletters-Potlood'), url('fonts/bpg_nino_mtavruli_normal.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'algeti-regular';
+    src: url('fonts/bpg-algeti-webfont.eot');
+    src: local('Blokletters Potlood Potlood'), local('Blokletters-Potlood'), url('fonts/bpg-algeti-webfont.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'arial-regular';
+    src: url('fonts/bpg-arial-webfont.eot');
+    src: local('Blokletters Potlood Potlood'), local('Blokletters-Potlood'), url('fonts/bpg-arial-webfont.ttf') format('truetype');
+}
+
+/* *{
+    font-family: blok-regular, helvetica, arial, Sylfaen;
+} */
+
+.NFont {
+    font-family: blok-regular, helvetica, arial, Sylfaen;
+}
+
+.algeti-Font {
+    font-family: algeti-regular, helvetica, arial, Sylfaen;
+}
+
+.bpg-arial-Font {
+    font-family: arial-regular, helvetica, arial, Sylfaen;/*მთავარ გვერძე არსებული ტაბები*/
+}
+
+
+
+.clear{
+    clear: both
+}
+
+
+i{
+    cursor: pointer
+}
+
+.bootstrap-select > button, .bootstrap-select .bs-searchbox > input , .bootstrap-select .dropdown-menu li a, input { 
+    font-family: arial-regular, helvetica, arial;
+    font-size: 14px !important;
+    color: #5d7769 !important;
+}
+
+/* .bootstrap-select > button{
+    font-weight: bold;
+} */
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-weight: normal !important;
+}
+:-moz-placeholder {
+    font-style: italic;  
+    font-weight: normal !important;
+}
+::-moz-placeholder {
+    font-style: italic;  
+    font-weight: normal !important;
+}
+:-ms-input-placeholder {  
+    font-style: italic; 
+    font-weight: normal !important;
+}
+
+button, input, select, a {
+    outline: none !important;
+}
+
+.greenGradientBackground_globally{
+    background: linear-gradient(to bottom, rgba(162,222,162,1) 0%,rgba(140,210,140,1) 44%,rgba(115,195,115,1) 100%);
+    color: #fff;
+}
+
+.display_inlineFlex_globally{
+    display: inline-flex;
+}
+
+/* ცხრილების გასწორება */
+
+table:not(.table-condensed) thead th{
+    background: linear-gradient(to bottom, rgba(241, 241, 241, 1) -17%,rgb(254, 254, 254) 11%,rgba(216, 216, 216, 1) 189%,rgba(129, 144, 127, 0.2) 100%);
+    text-align: center;
+    /* color: rgb(116, 142, 112); */
+
+    font-size: 14px;
+    color: rgb(109, 137, 106);
+    text-shadow: 0px 0px 0px rgb(142, 189, 137);
+    font-family: blok-regular, helvetica, arial, Sylfaen !important;
+}
+
+table:not(.table-condensed) tbody tr{
+    font-size: 15px;
+}
+
+table:not(.table-condensed) tr td{
+    width: 12%;
+    vertical-align: middle !important;
+}
+
+
+tbody tr:nth-child(odd){
+    background-color: rgba(59, 95, 34, 0.03) !important;
+}
+
+/* ტაბების გასწორება */
+.customNavTabStyles_globall{
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: none;
+}
+
+.customNavTabStyles_globall > li{
+    background: transparent;
+    border: none;
+}
+
+.customNavTabStyles_globall > li > a{
+    border-radius: 9px !important;
+    margin-left: 4px;
+    margin-bottom: 5px;
+    background-color: rgb(236, 236, 236);
+    border: 1px solid rgba(165, 165, 165, 0.49);
+    color: #969696;
+}
+
+
+.customNavTabStyles_globall > li > a.active{
+    border-top: 1px rgb(135, 207, 135) solid;
+    border-right: 1px rgb(135, 207, 135) solid;
+    background: linear-gradient(to bottom, rgba(162,222,162,1) 0%,rgba(140,210,140,1) 44%,rgba(115,195,115,1) 100%);
+    color: #fff !important;
+}
+
+/* მოდალური ფორმის გასტილვა */
+.modal-header{
+    border-bottom: 1px solid rgba(93, 119, 105, 0.43137254901960786);
+    background: linear-gradient(to bottom, rgba(255, 249, 194, 0.11) 0%,rgba(255, 255, 255, 0.21) 23%,rgba(219, 212, 183, 0.20) 96%,rgba(232, 220, 131, 0.00) 100%);
+}
+
+.modal-footer{
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(to bottom, rgba(198, 202, 199, 0.17) 0%,rgba(195, 196, 190, 0.15) 23%,rgba(194, 194, 194, 0.33) 96%,rgba(94, 119, 105, 0.68) 100%);
+}
+
+.modal-footer button{
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+    font-size: 15px;
+    display: flex;
+}
+
+.modal-footer .btn:focus, .modal-footer .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.customModalBodyHeight_global{/* კლასი, რომლის მეშვეობითაც მოდალური ფორმის body_ს ენიჭება სიმაღლე და უკეთდება scroll_ი */
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+}
+
+.customWideModal_global{
+    max-width: 80%;
+}
+
+
+
+/*
+ეს არის ცხრილის სიმაღლე, რომელიც ყველა ცხრილს უნდა გაეწეროს თავის კომპონენტში
+.tableParent_globall { 
+    overflow-y: auto; 
+    height: 200px;
+}
+*/
+
+.tableParent_globall { 
+    overflow: auto;
+}
+.tableParent_globall thead th, .tableParent_globall tfoot th { 
+    position: sticky; 
+    top: -1px; 
+}
+.tableParent_globall tfoot th { 
+    position: sticky; 
+    bottom: -1px; 
+}
+
+.scrollForTable_globall { 
+    border-collapse: collapse; 
+    width: 100%;
+    margin-top: -1px /* ეს ჭირდება იმისთვის, რომ scoll_ის დროს ცოტათი მაღლა არ ავიდეს...*/
+}
+
+.scrollForTable_globall > thead > tr > th {
+    z-index: 1;
+    box-shadow: inset 0px 0px 0px 1px #dee2e6; /*არის იგივე order... scroll_ის შემდეგ theade > th კარგავს border_ს ამიტომ საჭიროა ამის გაკეთება, რომ thead > th ქონდეს border_ი*/
+    border: none;
+}
+
+.scrollForTable_globall > tbody > tr > td{
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.scrollForTable_globall > tfoot > tr > th {
+    background: #fff;
+    text-align: center;
+    color: rgb(116, 142, 112);
+    box-shadow: 0 -1px 0px #dee2e6;
+}
+
+
+/*wizard_ზე არსებული ზედა მერიუს ღილაკების გასტილვა*/
+.customWizardNavigation_globall{
+    background: #f7f7f7;
+    border: 1px solid #d8d8d8;
+    margin: 0px !important;
+    padding: 0;
+    border-bottom: none
+}
+
+.customWizardNavigation_globall li > a{
+    font-family: blok-regular, helvetica, arial, Sylfaen;
+    color: #969696;
+}
+
+.customWizardNavigation_globall .active{
+    background: -webkit-linear-gradient(top, rgba(94, 119, 105, 0.75) 0%,rgba(93, 119, 105, 0.81) 94%,rgba(93, 119, 105, 0.76) 100%) !important;
+    border: 0;
+}
+
+/*dropdown_ების გასტილვა*/
+.bootstrap-select .btn {
+    background: #fff;
+    border: 1px solid silver;
+}
+
+.bootstrap-select .dropdown-menu li a.active{
+    background: #eee;
+    border: 1px solid rgba(0, 0, 0, .15);
+}
+
+.bootstrap-select .dropdown-menu li a:focus{
+    background-color: #eee;
+}
+
+/*dropdown_რომელსაც აქვს მხოლოდ icon_ი*/
+.selectpickerOnlyWithIcon_globally > div{
+    width: auto !important;
+}
+
+.selectpickerOnlyWithIcon_globally > div > .dropdown-menu { /*შეიძლება ზოგგან არ დაგვჭირდეს*/
+    left: -128px !important;
+}
+
+.selectpickerOnlyWithIcon_globally button{
+    background: transparent !important;
+    border: none !important;
+    width: auto !important;
+}
+
+.selectpickerOnlyWithIcon_globally button > div{
+    display: none !important;
+}
+
+.selectpickerOnlyWithIcon_globally .dropdown-menu li a{
+    font-family: algeti-regular, helvetica, arial, Sylfaen;
+}
+
+/**/
+.floatingButtons_globally{
+    display: inline-block;
+    margin: 0px !important;
+    padding: 7px 0px !important;
+    position: fixed;
+    z-index: 2;
+    top: 50%;
+}
+
+.floatingButtons_globally i{
+    vertical-align: middle !important;
+    padding: 7px 2px;
+}
+
+#prevButton{
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    left: 10px;
+}
+#nextButton{
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    right: 11px;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

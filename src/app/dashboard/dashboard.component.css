@@ -1,0 +1,66 @@
+#mainSuppliestable_parent{
+    min-height: 200px;
+    height: calc(100vh - 148px);
+}
+
+#mainSupplies_table tbody .sumColumn{
+    border-right: none
+}
+
+#mainSupplies_table tbody .iconsColumn{
+    border-left: none;
+    width: 1px;/*პირობითად ავიღე რომ სიგანეში ძალიან არ გაიზარდოს*/
+    padding: 0px;
+}
+
+#mainSupplies_table tbody tr .iconsColumn > div{
+    display: flex;
+    visibility: hidden;
+    top: 4px;
+    position: relative;
+}
+
+#mainSupplies_table tbody tr:hover .iconsColumn > div{
+    visibility: visible;
+}
+
+
+
+#productDetailTurnoverTable_parent{
+    max-height: calc(100vh - 232px);
+}
+
+
+
+
+
+
+#mainSupplies{
+    position: relative;
+}
+
+/* #mainSuppliesTable_filtration{
+    display: flex;
+    margin-left: auto
+}
+
+#mainSuppliesTable_filtration > div > p{
+    margin: 0
+} */
+
+
+
+#mainSupplies_table thead th span{
+    float: left;
+}
+
+#mainSupplies_table thead th .selectpickerOnlyWithIcon_globally{
+    float: right;
+}
+
+
+
+
+
+
+

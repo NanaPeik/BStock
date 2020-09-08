@@ -1,0 +1,250 @@
+<div id="parentBox">
+    <ul class="nav nav-pills mb-3 customWizardNavigation_globall" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#step_one" role="tab"
+                (click)="changeTab('previous')">მიმართულება</a>
+        </li>
+        <li class="nav-item" [hidden]="showSecondTab">
+            <a class="nav-link" data-toggle="pill" href="#step_two" role="tab" (click)="changeTab('next')">პროდუქტი</a>
+        </li>
+    </ul>
+
+    <div class="card algeti-Font">
+        <div id="main-cardBody" class="card-body">
+            <div id="nextButton" class="floatingButtons_globally greenGradientBackground_globally"
+                *ngIf="buttonType == 'next'">
+                <i class="material-icons" (click)="changeTab('next')">keyboard_arrow_right</i>
+            </div>
+            <div *ngIf="buttonType == 'save'">
+                <div id="prevButton" class="floatingButtons_globally greenGradientBackground_globally">
+                    <i class="material-icons" (click)="changeTab('previous')">keyboard_arrow_left</i>
+                </div>
+                <!-- <button (click)="saveExport()" class="btn greenGradientBackground_globally material-icons"
+                    style="position: absolute; bottom: 0px; right: 0px; z-index: 2;">save</button> -->
+            </div>
+
+            <div class="tab-content">
+                <div id="step_one" class="tab-pane fade show active" role="tabpanel">
+                    <div class="container">
+
+
+                        <table id="testTable">
+                            <tbody>
+                                <tr>
+                                    <td class="NFont">საწყობი</td>
+                                    <td>
+                                        <div>
+                                            <span>დასახელება</span>
+                                            <select id="stockSelect" class="selectpicker" title="აირჩიეთ საწყობი"
+                                                (change)="changeStock()" data-width="100%">
+                                                <option *ngFor="let i of reusableServices.export_slockList"
+                                                    value="{{i.Code}}">
+                                                    {{i.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NFont">კლიენტი</td>
+                                    <td>
+                                        <div>
+                                            <span>კოდი</span>
+                                            <div class="input-group p-0">
+                                                <input id="client" type="text" class="form-control"
+                                                    placeholder="კლიენტის კოდი" (keyup)="searchClient($event)">
+                                                <div class="input-group-prepend p-0" (click)="openClientModal()"
+                                                    style="cursor: pointer;">
+                                                    <span class="input-group-text"
+                                                        *ngIf="exportServices.clientInformation.length == 0; else elseForClientName">კლიენტი</span>
+                                                    <ng-template #elseForClientName>
+                                                        <span
+                                                            class="input-group-text">{{exportServices.clientInformation.FirstName}}</span>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+                        <!--                         
+                        <div class="card">
+                            <div class="card-header font-weight-bold NFont" style="font-size: 14px; color: rgb(48, 76, 45); text-shadow: 0px 0px 0px rgba(108, 136, 105, 0.43);">საწყობი</div>
+                            <div class="card-body">
+                                <div>
+                                    <select id="stockSelect" class="selectpicker" title="აირჩიეთ საწყობი"
+                                        (change)="changeStock()" data-width="100%">
+                                        <option *ngFor="let i of reusableServices.export_slockList" value="{{i.Code}}">
+                                            {{i.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-1">
+                            <div class="card-header font-weight-bold NFont" style="font-size: 14px; color: rgb(48, 76, 45); text-shadow: 0px 0px 0px rgba(108, 136, 105, 0.43);">კლიენტი</div>
+                            <div class="card-body">
+                                <div class="w-100">
+                                    <div class="input-group mb-3">
+                                        <input id="client" type="text" class="form-control" placeholder="კლიენტის კოდი"
+                                            (keyup)="searchClient($event)">
+                                        <div class="input-group-prepend" (click)="openClientModal()"
+                                            style="cursor: pointer;">
+                                            <span class="input-group-text"
+                                                *ngIf="exportServices.clientInformation.length == 0; else elseForClientName">კლიენტი</span>
+                                            <ng-template #elseForClientName>
+                                                <span
+                                                    class="input-group-text">{{exportServices.clientInformation.FirstName}}</span>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         -->
+                    </div>
+                </div>
+                <div id="step_two" class="tab-pane fade" role="tabpanel">
+                    <div id="topButtons" class="row">
+                        <div class="col-lg-3">
+                            <select id="product_select" (change)="product_select_change($event.target.value)"
+                                class="selectpicker" title="აირჩიეთ პროდუქტი" data-live-search="true" data-width="100%"
+                                data-none-results-text="მონაცემები არ მოიძებნა">
+                                <option *ngFor="let i of reusableServices.product_export" value="{{i.ProductCode1}}">
+                                    {{i.ProductName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="brand_select" (change)="brand_select_change($event.target.value)"
+                                class="selectpicker" title="ბრენდი" data-live-search="true" data-width="100%"
+                                data-none-results-text="მონაცემები არ მოიძებნა">
+                                <option *ngFor="let i of reusableServices.brand_export" value="{{i.Code}}">{{i.Name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select id="dimension_select" (change)="dimmension_select_change($event.target.value)"
+                                class="selectpicker" title="განზომილება" data-width="100%">
+                                <option *ngFor="let i of exportServices.dimensionsForExport" value="{{i.Code}}">
+                                    {{i.Name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group mb-3">
+                                <input id="qunatity" type="number" class="form-control" placeholder="რაოდენობა">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{{actualProductQuantity}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn greenGradientBackground_globally btn-block mb-1 mt-1"
+                            (click)="addNewProductInTable()">დამატება</button>
+                    </div>
+
+
+                    <div id="exportTable_parent" class="tableParent_globall">
+                        <table id="export_table"
+                            class="table table-bordered table-hover table-striped scrollForTable_globall">
+                            <thead>
+                                <tr>
+                                    <th>დასახელება</th>
+                                    <th>რაოდენობა</th>
+                                    <th>განზომილება</th>
+                                    <th>ერთ.ფასი</th>
+                                    <th>ჯამური თანხა</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="tableDatas.length == 0; else showDatas">
+                                    <td colspan="5">ცხრილი ცარიელია...</td>
+                                </tr>
+
+                                <ng-template #showDatas>
+                                    <tr *ngFor="let i of tableDatas">
+                                        <td>{{i.name}}</td>
+                                        <td>{{i.quantity}}</td>
+                                        <td>{{i.dimension}}</td>
+                                        <td>{{i.unitPrice}}</td>
+                                        <td>
+                                            {{i.sumPrice}}
+                                            <i class="material-icons delProdFromTable"
+                                                (click)="deleteProductFromTable({name: i.name, code1: i.code1})">delete_forever</i>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-cardFooter" class="card-footer text-right">
+            <button class="btn btn-default mr-1 display_inlineFlex_globally" (click)="closeExport()">
+                <i class="material-icons">remove</i>
+                <span>დახურვა</span>
+            </button>
+            <button *ngIf="buttonType == 'save'" (click)="saveExport()"
+                class="btn greenGradientBackground_globally display_inlineFlex_globally">
+                <i class="material-icons">done</i>
+                <span>შენახვა</span>
+            </button>
+        </div>
+        <!-- <div class="card-footer" [ngSwitch]="buttonType">
+            <button class="btn btn-danger material-icons" (click)="changeTab('previous')"
+                style="float: left">keyboard_arrow_left</button>
+
+            <button *ngSwitchCase="'next'" class="btn btn-success material-icons" (click)="changeTab('next')"
+                style="float: right">keyboard_arrow_right</button>
+
+            <button *ngSwitchCase="'save'" class="btn btn-success material-icons" (click)="saveExport()"
+                style="float: right">შენახვა</button>
+        </div> -->
+    </div>
+</div>
+
+
+
+<div id="addNewclient_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">კლიენტი</h5>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex;">
+                    <select id="payVat" class="selectpicker" title="აირჩიეთ...?" data-width="fit">
+                        <option value="0">არ იხდის დ.ღ.გ_ს</option>
+                        <option value="1">იხდის დ.ღ.გ_ს</option>
+                    </select>
+
+                    <select id="iurId" class="selectpicker" title="აირჩიეთ იურიდიული...?" data-width="100%">
+                        <option *ngFor="let i of exportServices.legal_list" value="{{i.LegalCode}}">{{i.LegalName}}
+                        </option>
+                    </select>
+                </div>
+                <input type="text" class="form-control" placeholder="დასახელება"
+                    [(ngModel)]="exportServices.clientInformation.FirstName" />
+                <input type="text" class="form-control" placeholder="ტელეფონის ნომერი"
+                    [(ngModel)]="exportServices.clientInformation.Tel" />
+                <input type="text" class="form-control" placeholder="კოდი"
+                    [(ngModel)]="exportServices.clientInformation.Code" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">
+                    <i class="material-icons">remove</i>
+                    <span>დახურვა</span>
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="addNewClient()">
+                    <i class="material-icons">done</i>
+                    <span>შენახვა</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

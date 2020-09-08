@@ -1,0 +1,314 @@
+<ul class="nav nav-tabs customNavTabStyles_globall bpg-arial-Font" role="tablist">
+  
+
+  <li [hidden]="tabs.showtenderTab" class="nav-item" (click)="activeTenderTab($event)">
+    <a class="nav-link" data-toggle="tab" href="#mainTenders" role="tab">ტენდერი</a>
+  </li>
+  <li [hidden]="tabs.showSuppliesTab" class="nav-item" (click)="activeSupplieTab({count: '*', startId: '*', scrollTop: 0}, $event)">
+    <a class="nav-link" data-toggle="tab" href="#mainSupplies" role="tab">მარაგები</a>
+  </li>
+  
+
+  <!-- <li id="mainSuppliesTable_filtration" [hidden]="!showFiltration">
+    <div id="productListforFiltration_parent">
+      <p>პროდუქტი</p>
+      <select id="productListforFiltration" (change)="changeSuppliesTablefiltration($event)" class="selectpicker"
+        data-live-search="true" data-size="5">
+        <option value="*">-</option>
+        <option *ngFor="let i of reusableServices.product_filtration" value="{{i.ProductUserCode}}">
+          {{i.ProductName}} ({{i.ProductUserCode}})
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <p>ბრენდი</p>
+      <select id="brandListForFiltration" (change)="changeSuppliesTablefiltration($event)" class="selectpicker"
+        data-size="5" data-live-search="true">
+        <option value="*">-</option>
+        <option *ngFor="let i of reusableServices.brand_filtration" value="{{i.Code}}">
+          {{i.Name}}
+        </option>
+      </select>
+    </div>
+    <div id="commentListForFiltration_parent">
+      <p>კომენტარი</p>
+      <select id="commentListForFiltration" (change)="changeSuppliesTablefiltration($event)" class="selectpicker"
+        data-size="5" data-live-search="true">
+        <option value="*">-</option>
+        <option *ngFor="let i of reusableServices.comment_filtration" value="{{i.Comment}}">
+          {{i.Comment}}
+        </option>
+      </select>
+    </div>
+  </li> -->
+</ul>
+<div class="tab-content">
+  <div id= "mainTenders" class="tab-pane fade" role="tabpanel">
+    ტენდერები
+  </div>
+  <div id="mainSupplies" class="tab-pane fade" role="tabpanel" style="position: relative">
+
+
+
+
+
+    <div id="mainSuppliestable_parent" class="tableParent_globall" (scroll)="mainSuppliestable_scroll($event)">
+      <table id="mainSupplies_table" class="table table-bordered table-hover table-striped scrollForTable_globall algeti-Font">
+        <thead>
+          <tr>
+            <th>
+              <span>დასახელება</span>
+              <div class="selectpickerOnlyWithIcon_globally"><!--ეს კლასი როგორ მუშაობს?? google it yet!!!-->
+                <select id="productListforFiltration" (change)="changeSuppliesTablefiltration($event)"
+                  class="selectpicker" data-live-search="true" data-size="5" data-none-results-text="მონაცემები არ მოიძებნა">
+                  <option value="*">-</option>
+                  <option *ngFor="let i of reusableServices.product_filtration" value="{{i.ProductUserCode}}">
+                    {{i.ProductName}} ({{i.ProductUserCode}})
+                  </option>
+                </select>
+              </div>
+            </th>
+            <th>კოდი</th>
+            <th>
+              <span>ბრენდი</span>
+              <div class="selectpickerOnlyWithIcon_globally">
+                <select id="brandListForFiltration" (change)="changeSuppliesTablefiltration($event)"
+                  class="selectpicker" data-size="5" data-live-search="true" data-none-results-text="მონაცემები არ მოიძებნა">
+                  <option value="*">-</option>
+                  <option *ngFor="let i of reusableServices.brand_filtration" value="{{i.Code}}">
+                    {{i.Name}}
+                  </option>
+                </select>
+              </div>
+            </th>
+            <th>
+              <span>კომენტარი</span>
+              <div class="selectpickerOnlyWithIcon_globally">
+                <select id="commentListForFiltration" (change)="changeSuppliesTablefiltration($event)"
+                  class="selectpicker" data-size="5" data-live-search="true" data-none-results-text="მონაცემები არ მოიძებნა">
+                  <option value="*">-</option>
+                  <option *ngFor="let i of reusableServices.comment_filtration" value="{{i.Comment}}">
+                    {{i.Comment}}
+                  </option>
+                </select>
+              </div>
+            </th>
+            <th>რაოდენობა</th>
+            <th>განზომილება</th>
+            <th>ერთ.ფასი</th>
+            <th>ჯამი</th>
+            <th colspan="2">ვალუტა</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="reusableServices.datasForSupplieTable.length == 0; else showSuppliesData">
+            <td colspan="9">ცხრილი ცარიელია...</td>
+          </tr>
+
+          <ng-template #showSuppliesData>
+            <tr *ngFor="let i of reusableServices.datasForSupplieTable">
+              <td>{{i.ProductName}}</td>
+              <td>{{i.ProductCode}}</td>
+              <td>{{i.Brand}}</td>
+              <td>{{i.Comment}}</td>
+              <td>{{i.Quantity}}</td>
+              <td>{{i.DimensionName}}</td>
+              <td>{{i.UnitPrice}}</td>
+              <td>{{i.Quantity * i.UnitPrice}}</td>
+              <td class="sumColumn">{{i.CurrencyName}}</td>
+              <td class="iconsColumn">
+                <div>
+                  <i class="material-icons" style="margin-top: 2px;"
+                    (click)="appComponent.mainButtonsClick('import', 'პროდუქტის მიღება', {productCode1: i.ProductCode1, productUserCode: i.ProductCode, brandCode: i.BrandCode})">add</i>
+                  <i class="material-icons" style="margin-top: 2px;"
+                    (click)="appComponent.mainButtonsClick('export', 'პროდუქტის განაწილება', {productCode1: i.ProductCode1, productUserCode: i.ProductCode, brandCode: i.BrandCode})">local_shipping</i>
+                  <i class="material-icons"
+                    (click)="changeProductInformation({productName: i.ProductName, userCode: i.ProductCode, unitPrice: i.UnitPrice, comment: i.Comment})">open_in_new</i>
+                  <i class="material-icons"
+                    (click)="productTurnoverInformation(i.ProductCode, i.BrandCode)">autorenew</i>
+                </div>
+              </td>
+
+              <!-- საჭიროა, რომ გასწორდეს scrollHeight(scrollTop) -->
+            <tr style="display: none">
+              {{reusableServices.forScrollTop}}<!--ეს როგრო მუშაობს?????-->
+            </tr>
+          </ng-template>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="10" style="padding: 6px;">&nbsp;</th><!--&nbsp;  -->
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- მოდალური ფორმა, საიდანაც შეიძლება პროდუქტის მონაცემების ცვლილება -->
+<div id="changeProductParameters_modal" class="modal fade bpg-arial-Font" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">პარამეტრების ცვლილება</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group" style="margin: 0px;">
+            <label for="">დასახელება</label>
+            <div class="input-group mb-3">
+              <input type="text" #old_productName value="{{parameterChangeDatas.productName}}" class="form-control"
+                placeholder="დასახელება" disabled>
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">forward</i>
+                </span>
+              </div>
+              <input type="text" #new_productName class="form-control new"
+                placeholder="{{parameterChangeDatas.productName}}">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin: 0px;">
+            <label for="">კოდი</label>
+            <div class="input-group mb-3">
+              <input type="text" #old_productUserCode value="{{parameterChangeDatas.userCode}}" class="form-control"
+                placeholder="კოდი" disabled>
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">forward</i>
+                </span>
+              </div>
+              <input type="text" #new_productUserCode class="form-control new"
+                placeholder="{{parameterChangeDatas.userCode}}">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin: 0px;">
+            <label for="">ერთ.ფასი</label>
+            <div class="input-group mb-3">
+              <input type="text" #old_productUnitPrice value="{{parameterChangeDatas.unitPrice}}" class="form-control"
+                placeholder="ერთ.ფასი" disabled>
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">forward</i>
+                </span>
+              </div>
+              <input type="text" #new_productUnitPrice class="form-control new"
+                placeholder="{{parameterChangeDatas.unitPrice}}">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin: 0px;">
+            <label for="">კომენტარი</label>
+            <div class="input-group mb-3">
+              <input type="text" #old_productComment value="{{parameterChangeDatas.comment}}" class="form-control"
+                placeholder="კომენტარი" disabled>
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">forward</i>
+                </span>
+              </div>
+              <input type="text" #new_productComment class="form-control new"
+                placeholder="{{parameterChangeDatas.comment}}">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">
+          <i class="material-icons">remove</i>
+          <span>დახურვა</span>
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="save_changeProductParametersModal(
+            {
+              old_productName: old_productName.value,
+              old_productUserCode:old_productUserCode.value,
+              old_productUnitPrice:old_productUnitPrice.value,
+              old_productComment:old_productComment.value,
+              new_productName:new_productName.value,
+              new_productUserCode:new_productUserCode.value,
+              new_productUnitPrice:new_productUnitPrice.value,
+              new_productComment:new_productComment.value
+            })">
+          <i class="material-icons">done</i>
+          <span>შენახვა</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- ბრუნვის მოდალური ფორმა, საიდანაც შესაძლებელია პროდუქტის ისტორიის (შესყიდვა/რეალიზაციის) ისტორიის ნახვა -->
+<div id="productDetailTurnover_modal" class="modal fade bpg-arial-Font" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg customWideModal_global" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ბრუნვა</h5>
+      </div>
+      <div class="modal-body customModalBodyHeight_global">
+
+        <div id="productDetailTurnoverTable_parent" class="tableParent_globall">
+          <table id="productDetailTurnover_table"
+            class="table table-bordered table-hover table-striped scrollForTable_globall"><!--scrollForTable_globall ამ კლასის ფუნქცია უნდა დავაზუსტო!!!!!!-->
+            <thead>
+              <tr>
+                <th>დასახელება</th>
+                <th>კოდი</th>
+                <th>ბრენდი</th>
+                <th>რაოდენობა</th>
+                <th>განზომილება</th>
+                <th>ერთ.ფასი</th>
+                <th>ჯამი</th>
+                <th>ვალუტა</th>
+                <th>თარიღი</th>
+                <th>სტატუსი</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="datasForTurnover.length == 0; else showDatas">
+                <td colspan="10">ცხრილი ცარიელია...</td>
+              </tr>
+
+              <ng-template #showDatas>
+                <tr *ngFor="let i of datasForTurnover">
+                  <td>{{i.ProductName}}</td>
+                  <td>{{i.productUserCode}}</td>
+                  <td>{{i.Brand}}</td>
+                  <td>{{i.Quantity}}</td>
+                  <td>{{i.Dimension}}</td>
+                  <td>{{i.UnitPrice}}</td>
+                  <td>{{i.sum}}</td>
+                  <td>{{i.Currency}}</td>
+                  <td>{{i.Date}}</td>
+                  <td [style.color]="i.color">
+                    {{i.Status}}
+                  </td>
+                </tr>
+              </ng-template>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">
+          <i class="material-icons">remove</i>
+          <span>დახურვა</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--მობრუნების ფორმა-->
+<app-return></app-return>

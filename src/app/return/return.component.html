@@ -1,0 +1,79 @@
+
+<div class="modal fade bpg-arial-Font" id="turnReturnModal" tabindex="-1" role="dialog" aria-hidden="true"> 
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="turnReturnModalTitle"></h5>
+          <!-- <i class="material-icons" id='refreshicon'>refresh</i>
+          <i class="material-icons" id='doticon'>more_horiz</i>   bsDatepicker-->
+        </div>
+        <div class="modal-body">
+            <mat-form-field> 
+              <mat-label>საწყისი თარიღი</mat-label>
+              <input [(ngModel)]="firstdateForNgModel" matInput [matDatepicker]="myDatePicker" id='startDate' (dateChange)="addEvent($event)">
+              <mat-datepicker-toggle [for]="myDatePicker" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #myDatePicker></mat-datepicker>
+            </mat-form-field>
+            
+          <mat-form-field>
+            <mat-label>საბოლოო თარიღი</mat-label>
+            <input [(ngModel)]="seconddateForNgModel" matInput [matDatepicker]="myDatePicker1" id='endDate' (dateChange)="addEvent($event)">
+            <mat-datepicker-toggle [for]="myDatePicker1" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #myDatePicker1></mat-datepicker>
+          </mat-form-field>
+        
+          <div class="selectdiv">
+            <select class="selectpicker" id='companySelectpicker' data-width="383px" title="კომპანია" (change)='usedbycompanydropdown()'>
+              <option *ngFor="let obj of companyarray" value='{{obj.Code}}'>
+                {{obj.Name}}
+              </option>
+            </select>
+            <select class="selectpicker" id="partnumberSelectpicker" data-width="383px" title="პარტიის ნომერი" (change)='fillTable()'>
+              <option *ngFor="let obj of partynumberarray">
+                {{obj.PartNumber}}
+              </option>
+            </select>
+          </div>
+          <button class="btn btn-info" id="makeclear" (click)='Refreshinputs()'>
+            <i class="material-icons">cached</i>
+            <span>გასუფთავება</span></button><!--რაოდენობების გასუფთავება-->
+          <table id="tableReturnProduct" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">დასახელება</th>
+                <th scope="col">რაოდენობა</th>
+                <th scope="col">მისაბრუნებელი რაოდენობა</th>
+                <th scope="col">წვდომადი</th>
+                <th scope="col">განზომილება</th>
+                <th scope="col">ერთეულის ფასი</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="mainDate.length == 0; else loadDatas">
+                <td colspan="6">ცხრილი ცარიელია...</td>
+              </tr>
+              <ng-template #loadDatas>
+                <tr *ngFor="let obj of mainDate; let id=index">
+                  <td class="productName">{{obj.Name}}</td>
+                  <td>{{obj.Quantity}}</td>
+                  <input placeholder="" type='number' id='inputInTable'>
+                  <td>{{obj.BarCodeQuantity}}</td>
+                  <td>{{obj.Dimension}}</td>
+                  <td>{{obj.UnitPrice}}</td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal" (click)='clearform()'>
+            <i class="material-icons">remove</i>
+            <span>დახურვა</span></button>
+          <button type="button" class="btn btn-secondary" (click)='save()'>
+            <i class="material-icons">done</i>
+            <span>შენახვა</span></button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
